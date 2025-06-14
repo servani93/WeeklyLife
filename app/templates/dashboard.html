@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Welcome, {{ display_name }}!</h2>
+
+    <div class="text-center mb-4">
+        <a href="{{ url_for('main.add_event') }}" class="btn btn-primary me-2">Add New Event</a>
+        <a href="{{ url_for('main.profile') }}" class="btn btn-secondary me-2">Profile</a>
+    </div>
+
+    <h3>Your Events</h3>
+    <div class="row">
+        {% for event in personal_events %}
+            <div class="col-md-4 mb-3">
+                <div class="card shadow p-3">
+                    <h5>{{ event.title }}</h5>
+                    <p>{{ event.date }} — {{ event.category }}</p>
+                    <a href="{{ url_for('main.edit_event', event_id=event.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ url_for('main.delete_event', event_id=event.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>No personal events added yet.</p>
+        {% endfor %}
+    </div>
+
+    <h3>Global Events</h3>
+    <ul class="list-group mb-4">
+        {% for event in global_events %}
+            <li class="list-group-item">{{ event.date }} - {{ event.title }} ({{ event.category }})</li>
+        {% endfor %}
+    </ul>
+
+<h3 class="mt-5">Life Timeline Map (Week by Week):</h3>
+<p>Total Weeks Lived: {{ timeline|length }}</p>
+
+{% if timeline %}
+    <div class="life-map">
+        {% for week in timeline %}
+            {% set modal_id = 'modal_' ~ week.week_num %}
+            {% if week.personal_events %}
+                <div class="week event-week" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}"></div>
+            {% elif week.global_events %}
+                <div class="week global-week" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}"></div>
+            {% elif week.lived %}
+                <div class="week filled"></div>
+            {% else %}
+                <div class="week"></div>
+            {% endif %}
+
+            {% if week.personal_events or week.global_events %}
+            <div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="{{ modal_id }}Label">Week {{ week.week_num }} Events</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% if week.personal_events %}
+                                <strong>Personal Events:</strong>
+                                <ul>
+                                    {% for e in week.personal_events %}
+                                        <li>{{ e }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if week.global_events %}
+                                <strong>Global Events:</strong>
+                                <ul>
+                                    {% for e in week.global_events %}
+                                        <li>{{ e }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Timeline unavailable — Birthdate not set.</p>
+{% endif %}
+
+{% endblock %}
