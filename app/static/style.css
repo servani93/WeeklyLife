@@ -1,125 +1,105 @@
-/* prettyStyle.css */
+/* Timeline Card Styling */
+.timeline-card .card-header {
+    padding: 1rem 1.5rem;
+}
 
-/* General body styling */
-body {
-    background: linear-gradient(135deg, #ece9e6, #ffffff);
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
+.timeline-stats .badge {
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+}
+
+.life-map-header {
+    padding: 10px 0;
+}
+
+.timeline-footer {
+    padding: 15px 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.legend-item {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin: 5px 10px;
 }
 
-/* Headings */
-h2, h3 {
-    color: #333;
-    font-weight: 600;
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 8px;
+    border: 1px solid #dee2e6;
 }
 
-/* Form cards */
-.card {
-    border: none;
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-/* Input fields */
-.form-control {
-    border-radius: 8px;
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0,123,255,0.3);
-}
-
-/* Buttons */
-.btn-primary {
-    background: linear-gradient(to right, #4facfe, #00f2fe);
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(to right, #00f2fe, #4facfe);
-    transform: scale(1.05);
-}
-
-.btn-success {
-    background: linear-gradient(to right, #43e97b, #38f9d7);
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.btn-success:hover {
-    background: linear-gradient(to right, #38f9d7, #43e97b);
-    transform: scale(1.05);
-}
-
-.btn-danger {
-    border-radius: 50px;
-    padding: 8px 16px;
-}
-
-/* Timeline div */
-#visualization {
-    background: #f8f9fa;
-    border-radius: 12px;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-
-/* Profile picture */
-img.rounded-circle {
-    border: 3px solid #4facfe;
-    padding: 3px;
-}
-
-/* List styling */
-.list-group-item {
-    border: none;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    margin-bottom: 5px;
-}
+/* Timeline grid styles */
 .life-map {
     display: grid;
-    grid-template-columns: repeat(30, 16px);
-    gap: 3px;
-    margin-top: 20px;
-    justify-content: center;
+    grid-template-columns: repeat(52, 1fr);
+    gap: 4px;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .week {
-    width: 14px;
-    height: 14px;
-    background-color: #e0e0e0;
-    border-radius: 50%;
-    transition: transform 0.2s ease;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background-color: #f0f0f0;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .week.filled {
-    background-color: #b0bec5;
+    background-color: #6c757d;
 }
 
 .week.event-week {
-    background-color: #007bff;
+    background-color: #0d6efd;
 }
 
 .week.global-week {
-    background-color: #ff4d4d;
+    background-color: #198754;
 }
 
 .week:hover {
-    outline: 2px solid #333;
-    cursor: pointer;
-    transform: scale(1.4);
+    transform: scale(1.1);
+    z-index: 1;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .life-map {
+        grid-template-columns: repeat(26, 1fr);
+    }
+    
+    .timeline-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 10px;
+    }
+    
+    .timeline-stats .badge {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 576px) {
+    .life-map {
+        grid-template-columns: repeat(13, 1fr);
+    }
+    
+    .timeline-card .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .timeline-stats {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
