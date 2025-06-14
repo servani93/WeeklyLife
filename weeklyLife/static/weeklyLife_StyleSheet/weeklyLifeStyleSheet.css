@@ -1,0 +1,38 @@
+#SignUpbtn {
+    padding: 8px 65px;
+}
+
+#SignUpFooter{
+    padding-bottom: 20px;
+}
+
+#LogInFooter{
+    padding-bottom: 20px;
+}
+#SignInTemplates {
+    padding: 0px 9px;
+}
+
+#SignIn-alt {
+    img {
+        height: 24px;
+        width: 24px;
+    }
+
+}
+
+#SignIn-alt:link {
+    text-decoration: none;
+    color: #000;
+    background-color: transparent;
+}
+
+#SignIn-alt:visited {
+    color: rgb(9, 62, 33);
+}
+
+#SignIn-alt:hover {
+    color: rgb(192, 145, 189);
+    background-color: transparent;
+    text-decoration: none;
+}
