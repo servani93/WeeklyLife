@@ -12,11 +12,13 @@ bcrypt = Bcrypt()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    
-    # Railway PostgreSQL configuration
-    if 'DATABASE_URL' in os.environ:
+
+    # ✅ Correct database URI handling for Render.com or local
+    if 'DATABASE_URL' in os.environ and os.environ['DATABASE_URL']:
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace("postgres://", "postgresql://", 1)
-    
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
     db.init_app(app)
     login_manager.init_app(app)
     bcrypt.init_app(app)
