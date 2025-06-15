@@ -13,11 +13,13 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # ✅ Correct database URI handling for Render.com or local
-    if 'DATABASE_URL' in os.environ and os.environ['DATABASE_URL']:
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'].replace("postgres://", "postgresql://", 1)
+    database_url = os.environ.get('DATABASE_URL')
+
+    if database_url:
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+        app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # fallback for local
 
     db.init_app(app)
     login_manager.init_app(app)
