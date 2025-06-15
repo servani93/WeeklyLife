@@ -1,11 +1,11 @@
 import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-    db_url = os.environ.get('DATABASE_URL')
-    if db_url:
-        SQLALCHEMY_DATABASE_URI = db_url.replace('postgres://', 'postgresql://')
-    else:
-        # fallback URI or raise a meaningful error
-        raise ValueError("DATABASE_URL environment variable is not set.")
-    
+    SQLALCHEMY_DATABASE_URI = (
+        os.environ.get("DATABASE_URL")
+        or os.environ.get("PGDATABASE_URL")
+        or 'sqlite:///' + os.path.join(basedir, 'dev.db')  # fallback for dev
+    )
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
