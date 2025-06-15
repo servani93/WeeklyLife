@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Add Event</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.title.label }}<br>{{ form.title(size=50) }}</p>
+        <p>{{ form.date.label }}<br>{{ form.date() }}</p>
+        <p>{{ form.category.label }}<br>{{ form.category(size=30) }}</p>
+        <p>{{ form.type.label }}<br>{{ form.type() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <p><a href="{{ url_for('main.dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}
