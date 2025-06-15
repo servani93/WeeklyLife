@@ -10,6 +10,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
+    
+    # ✅ Newly required columns for profile feature:
+    name = db.Column(db.String(100), nullable=True)
+    profile_pic = db.Column(db.String(120), nullable=True)  # stores filename of uploaded profile picture
+
     events = db.relationship('Event', backref='author', lazy=True)
 
 class Event(db.Model):
