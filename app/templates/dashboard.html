@@ -111,13 +111,26 @@
                     {% for week in timeline %}
                     {% set modal_id = 'modal_' ~ week.week_num %}
                     {% if week.personal_events %}
-                    <div class="week event-week" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}"></div>
+
+                    <div class="week event-week" data-bs-toggle="tooltip" 
+                        data-bs-title='Its Your Event, you can click to know more'>
+                        <div class="week event-week" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}"></div>
+                    </div>
                     {% elif week.global_events %}
-                    <div class="week global-week" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}"></div>
+
+                    <div class="week global-week" data-bs-toggle="tooltip" 
+                        data-bs-title='Its a global Event, you can click to know more'>
+                        <div class="week global-week" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}"></div>
+                    </div>
+
                     {% elif week.lived %}
-                    <div class="week filled"></div>
+
+                    <div class="week filled" data-bs-toggle="tooltip" data-bs-title="You can add your lifeEvents"></div>
+
                     {% else %}
-                    <div class="week"></div>
+
+                    <div class="week" data-bs-toggle="tooltip" data-bs-title="You can add your appointments"></div>
+
                     {% endif %}
 
                     {% if week.personal_events or week.global_events %}
