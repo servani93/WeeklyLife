@@ -73,9 +73,22 @@ venv\Scripts\activate    # Windows
 pip install -r requirements.txt
 
 ##  Set up environment variables
-FLASK_APP=app
+FLASK_APP=app or (set FLASK_APP)
 FLASK_ENV=development
 SECRET_KEY=your_secret_key_here
+
+pip install Flask-Migrate
+
+##Add this within run.py
+from app import create_app, db
+from flask_migrate import Migrate
+
+app = create_app()
+migrate = Migrate(app, db)
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db}
 
 ## Initialize database
 flask db init
